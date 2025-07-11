@@ -1,0 +1,90 @@
+from zipfile import ZipFile
+from pathlib import Path
+
+html_content = """<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer-when-downgrade" />
+  <title>Vallata Super League</title>
+  <style>
+    body { background-color: black; color: gold; font-family: sans-serif; margin: 0; padding: 2rem; }
+    h1, h2 { color: gold; }
+    .card { background: gold; color: black; padding: 1rem; margin: 1rem 0; border-radius: 10px; }
+    .button { padding: 0.5rem 1rem; border: 1px solid black; background: none; color: black; cursor: pointer; }
+    .grid { display: grid; gap: 1rem; }
+    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .aspect-video { aspect-ratio: 16 / 9; width: 100%; border: none; }
+    footer { padding-top: 2rem; border-top: 1px solid rgba(255, 215, 0, 0.3); text-align: center; }
+    .social a { margin: 0 1rem; color: gold; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <section style="text-align: center; margin-bottom: 2rem;">
+      <h1>VALLATA SUPER LEAGUE</h1>
+      <p>Il blog ufficiale del torneo calcistico della Vallata</p>
+    </section>
+
+    <section class="grid grid-cols-3">
+      <div class="card">
+        <h2>Articolo #1</h2>
+        <p>Anteprima del contenuto del blog. Aggiornamenti, risultati e interviste.</p>
+        <button class="button">Leggi di più</button>
+      </div>
+      <div class="card">
+        <h2>Articolo #2</h2>
+        <p>Anteprima del contenuto del blog. Aggiornamenti, risultati e interviste.</p>
+        <button class="button">Leggi di più</button>
+      </div>
+      <div class="card">
+        <h2>Articolo #3</h2>
+        <p>Anteprima del contenuto del blog. Aggiornamenti, risultati e interviste.</p>
+        <button class="button">Leggi di più</button>
+      </div>
+    </section>
+
+    <section style="margin-top: 3rem;">
+      <h2>Video</h2>
+      <div class="grid grid-cols-2">
+        <iframe class="aspect-video"
+          src="https://www.youtube.com/embed/7-gempcjeFo"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+        <iframe class="aspect-video"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          referrerpolicy="no-referrer-when-downgrade"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2025 Vallata Super League</p>
+      <div class="social">
+        <a href="https://www.instagram.com/vallata_super_league/" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/people/Vallata-Super-League/100094657489059" target="_blank">Facebook</a>
+        <a href="https://www.youtube.com/@VallataSuperLeague" target="_blank">YouTube</a>
+        <a href="https://www.twitch.tv/vallatasuperleague" target="_blank">Twitch</a>
+        <a href="https://www.tiktok.com/@vallata_super_league" target="_blank">TikTok</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
+"""
+
+# Scrive index.html e lo zippa
+html_path = Path("index.html")
+html_path.write_text(html_content, encoding="utf-8")
+
+with ZipFile("vallata-super-league.zip", "w") as zipf:
+    zipf.write(html_path)
+
+html_path.unlink()
+print("✅ Creato: vallata-super-league.zip")
